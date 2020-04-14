@@ -1,0 +1,27 @@
+/* Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved. */
+/* Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed. */
+
+/* -------- FADE -------- */
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: all 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+	opacity: 0;
+}
+
+/* -------- ZOOM -------- */
+
+.zoom-enter-active,
+.zoom-leave-active {
+	transition: all 0.5s;
+}
+
+.zoom-enter,
+.zoom-leave-to {
+	opacity: 0;
+	transform: scale(0);
+}

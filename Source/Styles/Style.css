@@ -1,0 +1,217 @@
+/* Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved. */
+/* Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed. */
+
+* {
+	font-family: 'Roboto', Helvetica, Arial, sans-serif;
+
+	margin: 0px;
+	padding: 0px;
+	
+	box-sizing: border-box;
+}
+
+body {
+	color: white;
+	background: black;
+	overflow: hidden;
+}
+
+a {
+	color: inherit;
+}
+
+/* ----- UTILITY ----- */
+
+.noselect {
+	user-select: none;
+}
+
+.pointer {
+	cursor: pointer;
+}
+
+.transparent {
+	opacity: 0;
+}
+
+.center {
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+}
+
+.overlay {
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	position: absolute;
+	z-index: 10;
+}
+
+.overlay.light {
+	background: #0008;
+}
+
+.overlay.dark {
+	background: #000d;
+}
+
+.overlay.black {
+	background: #000;
+}
+
+/* ----- INPUT ----- */
+
+/* BUTTON */
+
+button {
+	border: none;
+	outline: none;
+	background: none;
+	font-size: inherit;
+	text-transform: uppercase;
+
+	transition: all ease 0.2s;
+}
+
+.button {
+	border-radius: 4px;
+	padding: 6px 16px;
+	color: #bcbcf2;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.button:hover {
+	background: #bcbcf233;
+}
+
+.button.outlined {
+	border: 1px solid #bcbcf288;
+}
+
+.button.outlined:hover {
+	border: 1px solid #bcbcf2
+}
+
+.button.contained {
+	color: #000;
+	background: #bcbcf2;
+}
+
+/* INPUT */
+
+input, select {
+	outline: none;
+	color: #fff;
+	background-color: transparent;
+	border-radius: 4px;
+	border: 1px solid #AAA;
+	padding: 6px 16px;
+	transition: all ease 0.2s;
+}
+
+input:hover,
+select:hover {
+	border-color: #fff;
+}
+
+input:focus,
+select:focus {
+	border-color: #bcbcf2;
+}
+
+input.compact, select.compact {
+	padding: 2px 8px;
+}
+
+option {
+	color: black;
+}
+
+
+
+
+
+  html {
+	--scrollbarBG: rgba(207, 216, 220, 0.308);
+	--thumbBG: #41c0ff;
+	}
+	
+	
+	::-webkit-scrollbar {
+	width: 5px;
+	height: 5px;
+	display: none;
+	}
+	::-webkit-scrollbar-track {
+	background: var(--scrollbarBG);
+	}
+	::-webkit-scrollbar-thumb {
+	background-color: var(--thumbBG) ;
+	border-radius: 5px;
+	}
+
+h1, h2, h3 {
+	text-align: center;
+	font-weight: normal;
+	text-shadow: 0 0 8px black;
+}
+
+h3 {
+	color: #AAA;
+}
+
+:root {
+	--swiper-theme-color: #00b0f0;
+}
+
+.background {
+	background-image: url('~@/Assets/Wallpaper.jpg');
+	background-color:white;
+
+	background-blend-mode: multiply;
+	
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed;
+
+	z-index: -100;
+	
+	background-position: center;
+	background-size: cover;
+
+	transition: all 1s;
+}
+
+.background.subtle {
+	filter: blur(3px);
+	background-color: #888;
+}
+
+/* ################################ */
+/* TEXT BUTTON                      */
+/* ################################ */
+
+.textButton {
+	color: #00b0f0;
+	border-bottom: 1px solid #00b0f0;
+	margin: 0 10px;
+	font-weight: bold;
+	cursor: pointer;
+	display: inline-block;
+}
+
+.textButton:enabled:hover {
+	transform: scale(1.1);
+}
+
+.textButton:disabled {
+	color: #AAA;
+	border: none;
+}

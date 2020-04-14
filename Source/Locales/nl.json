@@ -1,0 +1,155 @@
+{
+	"common": {
+		"or": "of",
+		"you": "je"
+	},
+
+	"button": {
+		"play": "Speel",
+		"draw": "Trek",
+		"next": "Volgende",
+		"back": "Terug",
+		"start": "Start"
+	},
+
+	"error": {
+		"connected": "Je bent al verbonden.",
+		"name-invalid": "Je naam moet 2 tot 16 tekens bevatten.",
+		"name-exists": "Er bestaat al een speler met jouw naam. Kies een andere naam.",
+		"game-invalid": "De Game ID bestaat niet. Laat de Game ID leeg om een nieuw spel te maken.",
+		"game-started": "Het spel is al begonnen, je kunt niet meer meedoen."
+	},
+
+	"login": {
+		"name": "Naam",
+		"game": "Game ID",
+		"join": "Speel mee",
+		"create": "Nieuw spel"
+	},
+
+	"game-start": {
+		"welcome": "Welkom {name}",
+		"share": "Deel de Game ID met medespelers",
+		"start": "Start het spel als iedereen klaar is",
+		"wait": "Wacht tot {host} het spel start"
+	},
+
+	"game-end": {
+		"winner": "{name} won het spel"
+	},
+
+	"event": {
+		"draw": "{player} trok",
+		"play": "{player} speelde",
+		"block": "{player} blokkeerde {target}",
+		"target": "{player} viel {target} aan",
+		"survive": "{player} overleefde"
+	},
+
+	"future": {
+		"title": "Bovenste kaarten op de trekstapel"
+	},
+
+	"support": {
+		"title": "Geniet je van het spel ?",
+		"desc": "Overweeg om mij te steunen!"
+	},
+
+	"rules": {
+		"play": { "title": "Acties", "desc": "" },
+		"draw": { "title": "Gebeurtenissen", "desc": "" },
+		"block": { "title": "Blokkeren", "desc": "" },
+		"none": { "title": "Speciale kaarten", "desc": "Deze kaarten hebben enkel een effect in combinatie met andere kaarten. Je kan ze niet spelen maar wel doorgeven of wisselen door gebruik te maken van respectievelijk een Handdruk of Illegale pop-up shop." }
+	},
+
+	"cards": {
+		"Nope": {
+			"title": "Nope",
+			"desc": ""
+		},
+		"FakeNews": {
+			"title": "Fake News",
+			"desc": ""
+		},
+		"Vaccine": {
+			"title": "Vaccin",
+			"desc": ""
+		},
+		"Sneeze": {
+			"title": "Niezen",
+			"desc": "Beëindig je beurt zonder kaarten te trekken. De volgende speler trekt een extra kaart."
+		},
+		"Skip": {
+			"title": "Overslaan",
+			"desc": "Trek één kaart minder dan gevraagd."
+		},
+		"Future": {
+			"title": "Toekomst",
+			"desc": "Bekijk de bovenste 3 kaarten op de trekstapel."
+		},
+		"Shuffle": {
+			"title": "Schudden",
+			"desc": "De trekstapel wordt geschud."
+		},
+		"Hamster": {
+			"title": "Hamsteren",
+			"desc": "De beurt gaat naar de speler met de minste kaarten die niet in Lockdown zit. Deze speler trekt kaarten totdat hij niet meer de minste kaarten heeft."
+		},
+		"IllegalPopUpShop": {
+			"title": "Illegale pop-up shop",
+			"desc": "Wissel een kaart met een kaart uit de wegwerpstapel.",
+			"options": [
+
+			]
+		},
+		"Multiply": {
+			"title": "Vermenigvuldigen",
+			"desc": "Maak een kopie van een eigen actiekaart.",
+			"options": [
+
+			]
+		},
+		"AmericanHealthcare": {
+			"title": "Amerikaanse gezondheidszorg",
+			"desc": "Leg al je kaarten op de wegwerpstapel en krijg een Vaccin."
+		},
+		"Lockdown": {
+			"title": "Lockdown",
+			"desc": "Kies een speler die één ronde lang geen kaarten mag spelen of trekken.",
+			"options": [
+
+			]
+		},
+		"Handshake": {
+			"title": "Handdruk",
+			"desc": "Vraag een kaart van een andere speler. Je krijgt twee kansen maar als de speler geen van beide kaarten heeft geef je zelf een kaart naar keuze.",
+			"options": [
+				
+			]
+		},
+		"InfectedTissue": {
+			"title": "Geïnfecteerde zakdoek",
+			"desc": "De speler met deze kaart krijgt Corona wanneer Gezondheidsinspectie getrokken wordt."
+		},
+		"HealthInspection": {
+			"title": "Gezondheidsinspectie",
+			"desc": "De speler met de Geïnfecteerde zakdoek krijgt Corona."
+		},
+		"Mutation": {
+			"title": "Mutatie",
+			"desc": "Alle spelers verliezen een Vaccin."
+		},
+		"SuccesfulResearch": {
+			"title": "Succesvol onderzoek",
+			"desc": "Alle spelers krijgen een Vaccin."
+		},
+		"CoronaParty": {
+			"title": "Corona Party",
+			"desc": "Alle spelers krijgen een kopie van de bovenste kaart op de trekstapel."
+		},
+		"Corona": {
+			"title": "Corona",
+			"desc": "De speler ligt uit het spel tenzij hij een Vaccin heeft."
+		}
+	}
+}

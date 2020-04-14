@@ -1,0 +1,143 @@
+{
+	"common": {
+		"or": "or",
+		"you": "you"
+	},
+
+	"button": {
+		"play": "Play",
+		"draw": "Draw",
+		"next": "Next",
+		"back": "Back",
+		"start": "Start"
+	},
+
+	"error": {
+		"connected": "You're already connected.",
+		"name-invalid": "Your name should contain 2 to 16 characters.",
+		"name-exists": "A player with your name already exists. Choose a different name.",
+		"game-invalid": "The Game ID doesn't exist. Leave Game ID empty to create a new game.",
+		"game-started": "The game already started, you can't join anymore."
+	},
+
+	"login": {
+		"name": "Name",
+		"game": "Game ID",
+		"join": "Join Game",
+		"create": "Create Game"
+	},
+
+	"game-start": {
+		"welcome": "Welcome {name}",
+		"share": "Share the Game ID with fellow players",
+		"start": "Start the game when everyone is ready",
+		"wait": "Wait for {host} to start the game"
+	},
+
+	"game-end": {
+		"winner": "{name} won the game"
+	},
+
+	"event": {
+		"draw": "{player} drew",
+		"play": "{player} played",
+		"block": "{player} blocked {target}",
+		"target": "{player} targeted {target}",
+		"survive": "{player} survived"
+	},
+
+	"future": {
+		"title": "Top cards on the draw pile"
+	},
+
+	"support": {
+		"title": "Enjoying the Game ?",
+		"desc": "Consider supporting me !"
+	},
+
+	"rules": {
+		"play": { "title": "Actions", "desc": "" },
+		"draw": { "title": "Events", "desc": "" },
+		"block": { "title": "Blocking", "desc": "" },
+		"none": { "title": "Special Cards", "desc": "These cards only have an effect in combination with other cards. You cannot play them but you can pass or exchange them by using a Handshake or Illegal Pop-Up Shop respectively." }
+	},
+
+	"cards": {
+		"Nope": {
+			"title": "Nope",
+			"desc": "Block an action of another player"
+		},
+		"FakeNews": {
+			"title": "Fake News",
+			"desc": "Block a drawn event"
+		},
+		"Vaccine": {
+			"title": "Vaccine",
+			"desc": "Protects you once against Corona"
+		},
+		"Sneeze": {
+			"title": "Sneeze",
+			"desc": "End your turn, make next player draw an additional card"
+		},
+		"Skip": {
+			"title": "Skip",
+			"desc": "Draw one card less than requested."
+		},
+		"Future": {
+			"title": "Future",
+			"desc": "Peek at the top 3 cards on the draw pile."
+		},
+		"Shuffle": {
+			"title": "Shuffle",
+			"desc": "The draw pile gets shuffled."
+		},
+		"Hamster": {
+			"title": "Hamster",
+			"desc": "The turn goes to the player with the fewest cards who's not in Lockdown. This player draws cards until he no longer has the fewest cards."
+		},
+		"IllegalPopUpShop": {
+			"title": "Illegal Pop-Up Shop",
+			"desc": "Exchange a card with a card from the discard pile."
+		},
+		"Multiply": {
+			"title": "Multiply",
+			"desc": "Make a copy of an own action card."
+		},
+		"AmericanHealthcare": {
+			"title": "American Healthcare",
+			"desc": "Put all your cards on the discard pile and get a Vaccine."
+		},
+		"Lockdown": {
+			"title": "Lockdown",
+			"desc": "Choose a player who is not allowed to play or draw cards for one round."
+		},
+		"Handshake": {
+			"title": "Handshake",
+			"desc": "Ask a card from another player. You get two chances, but if the player has neither, you give him a card of your choice."
+		},
+		"InfectedTissue": {
+			"title": "Infected Tissue",
+			"desc": "The player with this card gets Corona when Health Inspection gets drawn."
+		},
+		"HealthInspection": {
+			"title": "Health Inspection",
+			"desc": "The player with the Infected Tissue gets Corona."
+		},
+		"Mutation": {
+			"title": "Mutation",
+			"desc": "All players lose a Vaccine."
+		},
+		"SuccesfulResearch": {
+			"title": "Succesful Research",
+			"desc": "All players get a Vaccine."
+		},
+		"CoronaParty": {
+			"title": "Corona Party",
+			"desc": "All players receive a copy of the top card on the draw pile."
+		},
+		"Corona": {
+			"title": "Corona",
+			"desc": "The player is out of the game unless he has a Vaccine."
+		}
+	}
+}
