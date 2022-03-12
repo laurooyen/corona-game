@@ -1,9 +1,8 @@
-// Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved.
+// Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed.
 
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
 const express = require('express');
 const socket = require('socket.io');
 
@@ -23,7 +22,12 @@ const server = app.listen(PORT);
 // LOGIC
 // --------------------------------
 
-const io = socket(server);
+const io = socket(server, {
+	// TODO: This enables CORS for all origins
+	cors: {
+		methods: ["GET", "POST"],
+	}
+});
 
 const Game = require('./Game.js');
 const Player = require('./Player.js');

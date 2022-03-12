@@ -38,9 +38,16 @@
 		"winner": "{name} won the game"
 	},
 
+	"play": {
+		"turn": "It's your turn",
+		"wait": "You have no cards | You have 1 card | You have {n} cards",
+		"dead": "You're dead",
+		"left": "1 card left in the draw pile | {n} cards left in the draw pile"
+	},
+
 	"event": {
-		"draw": "{player} drew",
-		"play": "{player} played",
+		"event": "{player} drew",
+		"action": "{player} played",
 		"block": "{player} blocked {target}",
 		"target": "{player} targeted {target}",
 		"survive": "{player} survived"
@@ -51,33 +58,49 @@
 	},
 
 	"support": {
-		"title": "Enjoying the Game ?",
-		"desc": "Consider supporting me !"
+		"title": "Enjoying the Game?",
+		"desc": "Consider supporting me!"
 	},
 
 	"rules": {
-		"play": { "title": "Actions", "desc": "" },
-		"draw": { "title": "Events", "desc": "" },
-		"block": { "title": "Blocking", "desc": "" },
-		"none": { "title": "Special Cards", "desc": "These cards only have an effect in combination with other cards. You cannot play them but you can pass or exchange them by using a Handshake or Illegal Pop-Up Shop respectively." }
+		"title": "Game Rules",
+		"desc": "Corona is in the country and the virus is unstoppable! The aim of this game is to survive as long as possible until no other player is left.",
+		"begin": {
+			"title": "Start of the game",
+			"desc": "Each player starts the game with some random cards and a Vaccine. The first player then takes their turn and the game starts."
+		},
+		"turns": {
+			"title": "Turns",
+			"desc": "Each player takes turns one at a time. During a turn, the player performs one or more actions (see Actions). Other players may block these actions (see Blocking).The player ends the turn by drawing a card. If the player draws an event, it will be executed (see Events). Players may block this event (see Blocking). If the player has received Corona, he/she must give a Vaccine. If the player has run out of Vaccines, he/she is out of the game."
+		},
+		"end": {
+			"title": "End of the game",
+			"desc": "The last player standing wins the game, all other players got Corona."
+		},
+		"card-types": {
+			"action": { "title": "Actions", "desc": "" },
+			"event": { "title": "Events", "desc": "" },
+			"block": { "title": "Blocking", "desc": "" },
+			"none": { "title": "Special Cards", "desc": "These cards only have an effect in combination with other cards. You cannot play them but you can pass or exchange them by using a Handshake or Illegal Pop-Up Shop respectively." }
+		}
 	},
 
 	"cards": {
 		"Nope": {
 			"title": "Nope",
-			"desc": "Block an action of another player"
+			"desc": "Block an action of another player."
 		},
 		"FakeNews": {
 			"title": "Fake News",
-			"desc": "Block a drawn event"
+			"desc": "Block a drawn event."
 		},
 		"Vaccine": {
 			"title": "Vaccine",
-			"desc": "Protects you once against Corona"
+			"desc": "Protects you once against Corona."
 		},
 		"Sneeze": {
 			"title": "Sneeze",
-			"desc": "End your turn, make next player draw an additional card"
+			"desc": "End your turn, make next player draw an additional card."
 		},
 		"Skip": {
 			"title": "Skip",
@@ -97,11 +120,18 @@
 		},
 		"IllegalPopUpShop": {
 			"title": "Illegal Pop-Up Shop",
-			"desc": "Exchange a card with a card from the discard pile."
+			"desc": "Exchange a card with a card from the discard pile.",
+			"options": {
+				"give": "Card from yourself to give",
+				"take": "Card from the discard pile to take"
+			}
 		},
 		"Multiply": {
 			"title": "Multiply",
-			"desc": "Make a copy of an own action card."
+			"desc": "Make a copy of an own action card.",
+			"options": {
+				"copy": "Card to duplicate"
+			}
 		},
 		"AmericanHealthcare": {
 			"title": "American Healthcare",
@@ -109,11 +139,20 @@
 		},
 		"Lockdown": {
 			"title": "Lockdown",
-			"desc": "Choose a player who is not allowed to play or draw cards for one round."
+			"desc": "Choose a player who is not allowed to play or draw cards for one round.",
+			"options": {
+				"target": "Player to lock up"
+			}
 		},
 		"Handshake": {
 			"title": "Handshake",
-			"desc": "Ask a card from another player. You get two chances, but if the player has neither, you give him a card of your choice."
+			"desc": "Ask a card from another player. You get two chances, but if the player has neither, you give him a card of your choice.",
+			"options": {
+				"otherA": "First choice to steal",
+				"otherB": "Second choice to steal",
+				"self": "Card to give if requested cards are not available",
+				"target": "Player to steal from"
+			}
 		},
 		"InfectedTissue": {
 			"title": "Infected Tissue",

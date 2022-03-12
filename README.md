@@ -14,7 +14,7 @@ Fun Facts: The *Lockdown* card depicts [Maggie De Block](https://en.wikipedia.or
 
 # Usage
 
-## Installing
+## Installation
 
 ```bash
 # Install npm dependencies

@@ -1,22 +1,22 @@
-<!-- Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved. -->
+<!-- Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved. -->
 <!-- Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed. -->
 
 <template>
 	<div>
 		<div class="center" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
 			<transition name="fade">
-				<h2 v-if="name == player">It's your turn</h2>
-				<h2 v-else>Your cards</h2>
+				<h2 v-if="name == player">{{ $t('play.turn') }}</h2>
+				<h2 v-else> {{ $tc('play.wait', cardNames.length) }} </h2>
 			</transition>
 
-			<h3>{{left}} card{{left == 1 ? '' : 's'}} left in the draw pile</h3>
+			<h3>{{ $tc('play.left', left) }}</h3>
 
 			<Deck :cards="cards" @change="i => {cardIndex = i}"/>
 
 			<transition name="fade">
 				<h2 v-if="name == player">
 					<button @click="onPlay" class="textButton" :disabled="!canPlay">{{ $t('button.play') }}</button>
-					or
+					{{ $t('common.or') }}
 					<button @click="onDraw" class="textButton">{{ $t('button.draw') }} {{draw}}</button>
 				</h2>
 			</transition>
@@ -24,7 +24,7 @@
 
 		<transition name="fade">
 			<div v-if="optionsVisible" class="overlay" style="background: #000e;">
-				<CardOptions :options="card.options" @play="onPlayOptions" @close="onClose"/>
+				<CardOptions :card="card" :options="card.options" @play="onPlayOptions" @close="onClose"/>
 			</div>
 		</transition>
 	</div>
@@ -37,14 +37,11 @@ import { socket } from '../socket.js'
 import Deck from './Deck.vue'
 import CardOptions from './CardOptions.vue'
 
-import Cards from '../cards'
-
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import 'swiper/css/swiper.css'
+import { ECardType, Cards } from '../cards'
 
 export default {
 	components: {
-		Deck, CardOptions, Swiper, SwiperSlide
+		Deck, CardOptions
 	},
 
 	computed: {
@@ -67,8 +64,7 @@ export default {
 		},
 
 		canPlay() {
-			if(!this.card) return false; // TODO: This is ugly
-			return this.card.type == 'play';
+			return this.card && this.card.type == ECardType.Action;
 		}
 	},
 

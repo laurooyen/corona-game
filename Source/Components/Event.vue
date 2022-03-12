@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved. -->
+<!-- Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved. -->
 <!-- Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed. -->
 
 <template>
@@ -8,6 +8,8 @@
 			<template #player><span>{{textName(event.player)}}</span></template>
 			<template #target><span>{{textName(event.target)}}</span></template>
 		</i18n>
+
+		<br>
 
 		<Card :card="card">
 			<transition name="zoom">
@@ -28,7 +30,7 @@ import Timer from './Timer.vue'
 import { mapState } from 'vuex'
 import {socket} from '../socket.js'
 
-import Cards from '../cards'
+import { Cards } from '../cards'
 
 const blockDelay = 6000;
 const blockTime = 5000;
@@ -66,7 +68,6 @@ export default {
 		timerColor() {
 			return this.canBlock ? this.card.block.timer.color : 'grey';
 		},
-
 	},
 
 	data: () => ({
@@ -122,7 +123,7 @@ export default {
 		},
 
 		textName(name) {
-			return name == this.name ? 'You' : name;
+			return name == this.name ? this.$i18n.t('common.you') : name;
 		},
 
 		onBlock() {

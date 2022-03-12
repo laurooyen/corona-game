@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved.
+// Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed.
 
 const Util = {
@@ -49,10 +49,10 @@ const ArrayUtil = {
 		return array[array.length - index - 1];
 	},
 
-	repeat(value, length){
+	repeat(value, length) {
 		return new Array(length).fill(value);
 	},
-	
+
 	random(array, element = null) {
 		const index = Math.floor(Math.random() * array.length);
 		return element ? array.splice(index, 0, element) : array[index];
@@ -81,7 +81,7 @@ const ArrayUtil = {
 		while (i--) {
 			if (callback(array[i], i, array)) {
 				removed.push(array[i]);
-				array.splice(i,1);
+				array.splice(i, 1);
 			}
 		}
 

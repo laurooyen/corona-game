@@ -1,7 +1,7 @@
-// Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved.
+// Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed.
 
-const Cards = require('../Source/Cards.js');
+const { ECardType, Cards } = require('../Source/Cards.js');
 const { Util, ArrayUtil } = require('../Source/Utility.js');
 
 module.exports = class Game {
@@ -21,7 +21,7 @@ module.exports = class Game {
 
 		this.timer = null;
 		this.blockCount = 0;
-		this.blockTime = 11000;
+		this.blockTime = 11500;
 
 		this.drawCount = 1;
 	}
@@ -118,7 +118,7 @@ module.exports = class Game {
 			player: this.player.name,
 			draw: this.drawCount,
 			left: this.drawPile.length,
-			discardPile: ArrayUtil.unique(this.discardPile.filter(c => c.type != 'draw').map(c => c.name)),
+			discardPile: ArrayUtil.unique(this.discardPile.filter(c => c.type != ECardType.Event).map(c => c.name)),
 		});
 	}
 
@@ -133,22 +133,22 @@ module.exports = class Game {
 	}
 
 	onEffect(player, card, data) {
-		if(card.type == 'none') {
+		if(card.type == ECardType.None) {
 			this.data = data;
 			return;
 		}
 
-		if(card.type == 'play') {
+		if(card.type == ECardType.Action) {
 			if(player != this.player) return;
 		}
 
-		if(card.type == 'draw') {
+		if(card.type == ECardType.Event) {
 			if(player != this.player) return;
 		}
 
-		if(card.type == 'block') {
-			if(!ArrayUtil.last(this.discardPile, 1).block) return;
-			if((player.name == data.target) != card.exclusive) return;
+		if(card.type == ECardType.Block) {
+			if(!ArrayUtil.last(this.discardPile, 1).block) return; // Can last card be blocked
+			if((player.name == data.target) != card.exclusive) return; // TODO: Use canBlock
 
 			clearTimeout(this.timer);
 			this.blockCount++;
@@ -157,7 +157,7 @@ module.exports = class Game {
 		}
 
 		this.io.to(this.id).emit('game.event', {
-			type: card == Cards.Vaccine ? 'survive' : data.target && card.type == 'play' ? 'target' : card.type,
+			type: card == Cards.Vaccine ? 'survive' : data.target && card.type == ECardType.Action ? 'target' : card.type,
 			player: player.name,
 			target: card == Cards.Vaccine ? null : data.target,
 			card: card.name,
@@ -173,7 +173,7 @@ module.exports = class Game {
 			if(this.blockCount % 2 == 0) {
 				card.effect(this, this.data);
 			} else {
-				if(card.type == 'draw') {
+				if(card.type == ECardType.Event) {
 					// TODO: This won't work if opted out early
 					ArrayUtil.remove(this.discardPile, card);
 					ArrayUtil.random(this.drawPile, card);
@@ -208,12 +208,13 @@ module.exports = class Game {
 	onPlay(player, data) {
 		const card = Cards[data.card];
 
-		if(card.type == 'none' || card.type == 'draw') return;
+		if(card.type == ECardType.None || card.type == ECardType.Event) return;
 
 		if(card.hasOwnProperty('options')) {
-			for(const option of card.options) {
-				// TODO: Pass data to get()
-				//if(!option.get({}).includes(data[option.id])) return;
+			for (const [key, value] of Object.entries(card.options)) {
+				if(!value(player.name, player.cards.map(c => c.name), this.players, this.discardPile).includes(data[key])) {
+					return;
+				};
 			}
 		}
 
@@ -231,14 +232,14 @@ module.exports = class Game {
 
 		this.drawCount--;
 
-		if(card.type == 'draw') {
+		if(card.type == ECardType.Event) {
 			this.discardPile.push(card);
 			this.onEffect(player, card, {});
 		} else {
 			player.cards.push(card);
 
 			this.io.to(player.id).emit('game.event', {
-				type: 'draw',
+				type: ECardType.Event,
 				player: player.name,
 				target: null,
 				card: card.name,
@@ -249,9 +250,7 @@ module.exports = class Game {
 				this.drawCount = 1;
 				this.next();
 			}
-
-			// TODO: We don't need to check for players dead here, since Corona will always pass through onEvent
-
+			
 			this.sendCards(player);
 			this.sendPlayers();
 		}

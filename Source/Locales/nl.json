@@ -38,9 +38,16 @@
 		"winner": "{name} won het spel"
 	},
 
+	"play": {
+		"turn": "Het is jouw beurt",
+		"wait": "Je hebt geen kaarten | Je hebt 1 kaart | Je hebt {n} kaarten",
+		"dead": "Je bent dood",
+		"left": "1 kaart in de trekstapel | {n} kaarten in de trekstapel"
+	},
+
 	"event": {
-		"draw": "{player} trok",
-		"play": "{player} speelde",
+		"event": "{player} trok",
+		"action": "{player} speelde",
 		"block": "{player} blokkeerde {target}",
 		"target": "{player} viel {target} aan",
 		"survive": "{player} overleefde"
@@ -51,29 +58,45 @@
 	},
 
 	"support": {
-		"title": "Geniet je van het spel ?",
+		"title": "Geniet je van het spel?",
 		"desc": "Overweeg om mij te steunen!"
 	},
 
 	"rules": {
-		"play": { "title": "Acties", "desc": "" },
-		"draw": { "title": "Gebeurtenissen", "desc": "" },
-		"block": { "title": "Blokkeren", "desc": "" },
-		"none": { "title": "Speciale kaarten", "desc": "Deze kaarten hebben enkel een effect in combinatie met andere kaarten. Je kan ze niet spelen maar wel doorgeven of wisselen door gebruik te maken van respectievelijk een Handdruk of Illegale pop-up shop." }
+		"title": "Spelregels",
+		"desc": "Corona is in het land en het virus is niet meer te stoppen! Het doel van dit spel is om zo lang mogelijk te overleven tot er geen enkele andere speler meer overblijft.",
+		"begin": {
+			"title": "Begin van het spel",
+			"desc": "Elke speler begint het spel met een aantal willekeurige kaarten en een Vaccin. De eerste speler begint vervolgens zijn beurt en het spel gaat van start."
+		},
+		"turns": {
+			"title": "Beurten",
+			"desc": "Elke speler komt één voor één aan de beurt. Tijdens een beurt voert de speler één of meer acties uit (zie Acties). Andere spelers mogen deze acties blokkeren (zie Blokkeren). De speler beëindigt de beurt door een kaart te trekken. Als de speler een gebeurtenis trekt, wordt deze uitgevoerd (zie Gebeurtenissen). Spelers mogen deze gebeurtenis blokkeren (zie Blokkeren). Als de speler Corona heeft gekregen moet hij/zij een Vaccin afgeven. Als de speler geen Vaccin meer heeft, ligt hij/zij uit het spel."
+		},
+		"end": {
+			"title": "Einde van het spel",
+			"desc": "De speler die als laatste overblijft wint het spel, alle andere spelers kregen Corona."
+		},
+		"card-types": {
+			"action": { "title": "Acties", "desc": "" },
+			"event": { "title": "Gebeurtenissen", "desc": "" },
+			"block": { "title": "Blokkeren", "desc": "" },
+			"none": { "title": "Speciale kaarten", "desc": "Deze kaarten hebben enkel een effect in combinatie met andere kaarten. Je kan ze niet spelen maar wel doorgeven of wisselen door gebruik te maken van respectievelijk een Handdruk of Illegale pop-up shop." }
+		}
 	},
 
 	"cards": {
 		"Nope": {
 			"title": "Nope",
-			"desc": ""
+			"desc": "Blokkeer een actie van een andere speler."
 		},
 		"FakeNews": {
 			"title": "Fake News",
-			"desc": ""
+			"desc": "Blokkeer een getrokken gebeurtenis."
 		},
 		"Vaccine": {
 			"title": "Vaccin",
-			"desc": ""
+			"desc": "Beschermt je eenmalig tegen corona."
 		},
 		"Sneeze": {
 			"title": "Niezen",
@@ -98,16 +121,17 @@
 		"IllegalPopUpShop": {
 			"title": "Illegale pop-up shop",
 			"desc": "Wissel een kaart met een kaart uit de wegwerpstapel.",
-			"options": [
-
-			]
+			"options": {
+				"give": "Kaart van jezelf om te geven",
+				"take": "Kaart van de wegwerpstapel om te nemen"
+			}
 		},
 		"Multiply": {
 			"title": "Vermenigvuldigen",
 			"desc": "Maak een kopie van een eigen actiekaart.",
-			"options": [
-
-			]
+			"options": {
+				"copy": "Kaart om te dupliceren"
+			}
 		},
 		"AmericanHealthcare": {
 			"title": "Amerikaanse gezondheidszorg",
@@ -116,16 +140,19 @@
 		"Lockdown": {
 			"title": "Lockdown",
 			"desc": "Kies een speler die één ronde lang geen kaarten mag spelen of trekken.",
-			"options": [
-
-			]
+			"options": {
+				"target": "Speler om op te sluiten"
+			}
 		},
 		"Handshake": {
 			"title": "Handdruk",
 			"desc": "Vraag een kaart van een andere speler. Je krijgt twee kansen maar als de speler geen van beide kaarten heeft geef je zelf een kaart naar keuze.",
-			"options": [
-				
-			]
+			"options": {
+				"otherA": "Eerste keuze om te stelen",
+				"otherB": "Tweede keuze om te stelen",
+				"self": "Kaart om te geven als gevraagde kaarten niet beschikbaar zijn",
+				"target": "Speler om van te stelen"
+			}
 		},
 		"InfectedTissue": {
 			"title": "Geïnfecteerde zakdoek",

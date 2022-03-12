@@ -1,26 +1,27 @@
-// Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved.
+// Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved.
 // Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed.
 
 const { ArrayUtil } = require('./Utility.js');
 
 const ECardType = {
-	Action: 'action',
-	Event:  'event',
+	Action: 'action', // TODO: Rename string
+	Event:  'event', // TODO: Rename string
 	Block:  'block',
 	None:   'none',
 }
 
 const EBlockType = {
-	Others:   'others',
 	Everyone: 'everyone',
+	Others:   'others',
 	Self:     'self',
 }
 
-function canBlock(player, target, card) {
-	if(!card.block) return false;
-	if(card.blockType == EBlockType.Everyone) return true;
-
-	return (player == target) != (card.blockType == EBlockType.others);
+const canBlock = (player, target, card) => {
+	return card.block && (
+		(card.blockType == EBlockType.Everyone) ||
+		(card.blockType == EBlockType.Others && player != target) ||
+		(card.blockType == EBlockType.Self && player == target)
+	);
 }
 
 // ################################
@@ -31,9 +32,9 @@ const Nope = {
 	name: 'Nope',
 	color: '#000',
 
-	type: 'block',
+	type: ECardType.Block,
 	block: null,
-	exclusive: false,
+	exclusive: false, // blockType: EBlockType.Others
 
 	timer: { text: 'NOPE', color: '#ff0000' },
 }
@@ -44,9 +45,9 @@ const FakeNews = {
 	name: 'FakeNews',
 	color: '#000',
 
-	type: 'block',
+	type: ECardType.Block,
 	block: Nope,
-	exclusive: false,
+	exclusive: false, // blockType: EBlockType.Everyone
 
 	timer: { text: 'FAKE', color: '#ff8c00' },
 }
@@ -55,9 +56,9 @@ const Vaccine = {
 	name: 'Vaccine',
 	color: '#14d200',
 
-	type: 'block',
+	type: ECardType.Block,
 	block: null,
-	exclusive: true,
+	exclusive: true, // blockType: EBlockType.Self
 
 	timer: { text: 'HEAL', color: '#9acd32' },
 }
@@ -70,7 +71,7 @@ const Sneeze = {
 	name: 'Sneeze',
 	color: '#f2ff87',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g) {
@@ -83,7 +84,7 @@ const Skip = {
 	name: 'Skip',
 	color: '#000',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g) {
@@ -95,7 +96,7 @@ const Future = {
 	name: 'Future',
 	color: '#000',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g) {
@@ -108,7 +109,7 @@ const Shuffle = {
 	name: 'Shuffle',
 	color: '#000',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g) {
@@ -120,7 +121,7 @@ const Hamster = {
 	name: 'Hamster',
 	color: '#ff9900',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g) {
@@ -136,7 +137,7 @@ const IllegalPopUpShop = {
 	name: 'IllegalPopUpShop',
 	color: '#000',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g, d) {
@@ -144,39 +145,39 @@ const IllegalPopUpShop = {
 		g.player.cards.push(Cards[d.take]);
 	},
 
-	options: [
-		{id: 'give', desc: "Card from yourself to give", get(n, c, p, d) {
+	options: {
+		give: (n, c, p, d) => {
 			return ArrayUtil.unique(c.filter(c => Cards[c].name != 'IllegalPopUpShop'));
-		}},
-		{id: 'take', desc: "Card from the discard pile to take", get(n, c, p, d) {
+		},
+		take: (n, c, p, d) => {
 			return d;
-		}},
-	]
+		}
+	}
 }
 
 const Multiply = {
 	name: 'Multiply',
 	color: '#2c8edf',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g, d) {
 		g.player.cards.push(Cards[d.copy]);
 	},
 
-	options: [
-		{id: 'copy', desc: "Card to duplicate", get(n, c, p, d) {
-			return ArrayUtil.unique(c.filter(c => Cards[c].type == 'play').map(c => Cards[c].name));
-		}},
-	]
+	options: {
+		copy: (n, c, p, d) => {
+			return ArrayUtil.unique(c.filter(c => Cards[c].type == ECardType.Action).map(c => Cards[c].name));
+		}
+	}
 }
 
 const AmericanHealthcare = {
 	name: 'AmericanHealthcare',
 	color: '#000',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g) {
@@ -189,7 +190,7 @@ const Lockdown = {
 	name: 'Lockdown',
 	color: '#0f0f83',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g, d) {
@@ -197,18 +198,18 @@ const Lockdown = {
 		target.skip++;
 	},
 
-	options: [
-		{id: 'target', desc: "Player to lock up", get(n, c, p, d) {
+	options: {
+		target: (n, c, p, d) => {
 			return p.map(p => p.name);
-		}},
-	]
+		}
+	}
 }
 
 const Handshake = {
 	name: 'Handshake',
 	color: '#f2cfbc',
 
-	type: 'play',
+	type: ECardType.Action,
 	block: Nope,
 
 	effect(g, d) {
@@ -223,20 +224,20 @@ const Handshake = {
 		}
 	},
 
-	options: [
-		{id: 'otherA', desc: "First choice to steal", get(n, c, p, d) {
-			return Object.values(Cards).filter(c => c.type == 'play').map(c => c.name);
-		}},
-		{id: 'otherB', desc: "Second choice to steal", get(n, c, p, d) {
-			return Object.values(Cards).filter(c => c.type == 'play').map(c => c.name);
-		}},
-		{id: 'self', desc: "Card to give if requested cards are not available", get(n, c, p, d) {
-			return ArrayUtil.unique(c.filter(c => Cards[c].name != 'Handshake'));
-		}},
-		{id: 'target', desc: "Player to steal from", get(n, c, p, d) {
+	options: {
+		otherA: (n, c, p, d) => {
+			return Object.values(Cards).filter(c => c.type == ECardType.Action).map(c => c.name);
+		},
+		otherB: (n, c, p, d) => {
+			return Object.values(Cards).filter(c => c.type == ECardType.Action).map(c => c.name);
+		},
+		self: (n, c, p, d) => {
+			return ArrayUtil.unique(c.filter(c => Cards[c].name != 'Handshake')); // TODO: Use hard reference instead of 'Handshake' string
+		},
+		target: (n, c, p, d) => {
 			return p.filter(p => p.name != n && !p.dead && !p.skip).map(p => p.name);
-		}},
-	]
+		}
+	}
 }
 
 // ################################
@@ -247,7 +248,7 @@ const InfectedTissue = {
 	name: 'InfectedTissue',
 	color: '#0077f0',
 
-	type: 'none',
+	type: ECardType.None,
 	block: null,
 }
 
@@ -259,7 +260,7 @@ const HealthInspection = {
 	name: 'HealthInspection',
 	color: '#000',
 
-	type: 'draw',
+	type: ECardType.Event,
 	block: FakeNews,
 
 	effect(g) {
@@ -276,7 +277,7 @@ const Mutation = {
 	name: 'Mutation',
 	color: '#000',
 
-	type: 'draw',
+	type: ECardType.Event,
 	block: FakeNews,
 
 	effect(g) {
@@ -291,7 +292,7 @@ const SuccesfulResearch = {
 	name: 'SuccesfulResearch',
 	color: '#000',
 
-	type: 'draw',
+	type: ECardType.Event,
 	block: FakeNews,
 
 	effect(g) {
@@ -305,7 +306,7 @@ const CoronaParty = {
 	name: 'CoronaParty',
 	color: '#000',
 
-	type: 'draw',
+	type: ECardType.Event,
 	block: FakeNews,
 
 	effect(g) {
@@ -320,7 +321,7 @@ const Corona = {
 	name: 'Corona',
 	color: '#5e7394',
 
-	type: 'draw',
+	type: ECardType.Event,
 	block: Vaccine,
 
 	effect(g) {
@@ -331,15 +332,12 @@ const Corona = {
 const Cards = {
 	// Block
 	Nope, FakeNews, Vaccine,
-
 	// Play
 	Sneeze, Skip, Future, Shuffle, Hamster, IllegalPopUpShop, Multiply, AmericanHealthcare, Lockdown, Handshake,
-
-	// None
-	InfectedTissue,
-	
 	// Draw
 	HealthInspection, Mutation, SuccesfulResearch, CoronaParty, Corona,
+	// None
+	InfectedTissue,
 }
 
-module.exports = Cards;
+module.exports = { ECardType, Cards };

@@ -1,4 +1,4 @@
-<!-- Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved. -->
+<!-- Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved. -->
 <!-- Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed. -->
 
 <template>
@@ -64,12 +64,18 @@ export default {
 }
 
 .card .border div {
-	width: 100%;
-	height: 100%;
+	flex: 1 1 0%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	overflow: auto;
 }
 
 .card .border img {
-	width: 100%;
-	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 }
+
 </style>

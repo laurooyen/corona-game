@@ -1,16 +1,16 @@
-<!-- Copyright (c) 2020 Lauro Oyen, Corona Game contributors. All rights reserved. -->
+<!-- Copyright (c) 2020-2022 Lauro Oyen, Corona Game contributors. All rights reserved. -->
 <!-- Licensed under the MIT license. See LICENSE.md for full terms. This notice is not to be removed. -->
 
 <template>
 
 	<div class="center cardOptions">
 
-	<div v-for="option in options" :key="option.id" style="width: 100%;">
+	<div v-for="(optionGetter, optionName) in options" :key="optionName" style="width: 100%;">
 
-		<p>{{option.desc}}</p>
-		<select v-model="results[option.id]" class="compact">
-			<option :value="undefined" disabled>- Selection -</option>
-			<option v-for="(value, i) in values(option)" :key="value + i" :value="value">{{value}}</option>
+		<p>{{ $t(`cards.${card.name}.options.${optionName}`) }}</p>
+		<select v-model="results[optionName]" class="compact">
+			<option :value="undefined" disabled>- Selection -</option> <!-- TODO: Hardcoded language -->
+			<option v-for="(value, i) in values(optionGetter)" :key="value + i" :value="value">{{value}}</option>
 		</select>
 		
 	</div>
@@ -19,7 +19,7 @@
 
 	<h2>
 		<button @click="onPlay" class="textButton" :disabled="!canPlay">{{ $t('button.play') }}</button>
-		or
+		{{ $t('common.or') }}
 		<button @click="onClose" class="textButton">{{ $t('button.back') }}</button>
 	</h2>
 
@@ -30,11 +30,10 @@
 <script>
 import { mapState } from 'vuex'
 
-import Cards from '../cards.js'
-
 export default {
 	props: {
-		options: Array,
+		card: Object,
+		options: Object,
 	},
 
 	computed: {
@@ -46,7 +45,7 @@ export default {
 		}),
 
 		canPlay() {
-			return Object.keys(this.results).length == this.options.length;
+			return Object.keys(this.results).length == Object.keys(this.options).length;
 		}
 	},
 
@@ -64,7 +63,7 @@ export default {
 		},
 
 		values(option) {
-			return option.get(this.name, this.cards, this.players, this.discardPile);
+			return option(this.name, this.cards, this.players, this.discardPile);
 		},
 	}
 }
@@ -72,7 +71,7 @@ export default {
 
 <style>
 .cardOptions {
-	width: 100%;
+	max-width: 500px;
 	padding: 64px;
 }
 
